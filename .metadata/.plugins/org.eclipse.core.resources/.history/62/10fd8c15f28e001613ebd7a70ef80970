@@ -1,0 +1,15 @@
+
+
+object scalaTest {
+  
+  def main(args: Array[String]): Unit = {
+    val x="aa";
+    val y=List()
+    x :: y
+    y.foreach { n => print(n) }
+    val c=x :: y
+    val d=x :: y
+    val e=c ::: d
+   // e.foreach { n => print(n) }
+  }
+}

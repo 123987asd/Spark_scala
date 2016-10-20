@@ -1,0 +1,46 @@
+package graphx
+import org.apache.spark.SparkContext
+import org.apache.spark.SparkConf
+import org.apache.spark.graphx.Edge
+import org.apache.spark.graphx.VertexId
+import org.apache.spark.graphx.Graph
+import org.apache.spark.rdd.RDD
+import org.apache.spark.graphx.util.GraphGenerators
+import org.apache.spark.graphx.{Graph, VertexRDD}
+object third {
+  
+  def main(args: Array[String]): Unit = {
+    val conf=new SparkConf
+    conf.setMaster("local[2]").setAppName("Example")
+    val sc=new SparkContext(conf)
+    //节点和边放在一个Array里面 节点整体看成一个元组 前面是节点编号 后面节点的属性 
+    val users: RDD[(VertexId, (String, String))] =
+    sc.parallelize(Array((3L, ("rxin", "student")), (7L, ("jgonzal", "postdoc")),
+                       (5L, ("franklin", "prof")), (2L, ("istoica", "prof"))))
+    // Create an RDD for edges
+    val relationships: RDD[Edge[String]] =
+    sc.parallelize(Array(Edge(3L, 7L, "collab"),    Edge(5L, 3L, "advisor"),
+                       Edge(2L, 5L, "colleague"), Edge(5L, 7L, "pi")))
+    // Define a default user in case there are relationship with missing user
+    val defaultUser = ("John Doe", "Missing")
+    // Build the initial Graph
+    val graph = Graph(users, relationships, defaultUser)
+    //graph.vertices.foreach(print(_))
+    //graph.edges.foreach { n => print(n) }
+    //val newGraph = graph.mapVertices((id, attr) => ("AA","BB"))//mapUdf(id, attr))
+    //newGraph.vertices.foreach(print(_))
+    //newGraph.edges.foreach { n => print(n) }
+    graph.outDegrees.foreach(print(_))
+    val inputGraph: Graph[Int, String] =
+    graph.outerJoinVertices(graph.outDegrees)((vid, _, degOpt) => degOpt.getOrElse(0))//默认设置为0
+    inputGraph.vertices.foreach(print(_))
+    val outputGraph: Graph[Double, Double] =
+    inputGraph.mapTriplets(triplet => 1.0 / triplet.srcAttr).mapVertices((id, _) => 1.0)
+    outputGraph.vertices.foreach(print(_))
+    outputGraph.edges.foreach(print(_))
+  }
+   // def mapUdf(id:(VertexId,(String,String))):(VertexId,(String,String))=
+    //{
+      //(2L,("aa","bb"))
+    //}
+}

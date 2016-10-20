@@ -1,0 +1,35 @@
+
+import org.apache.spark.SparkContext
+
+import org.apache.spark.SparkConf
+import org.apache.spark.SparkConf
+
+
+object SimpleApp {
+
+  def main(args: Array[String]): Unit = {
+    
+    //println("123");
+    //var result=sub(multiply(add(1, 2), 3), 3);
+    //print(result)
+    val sc=new SparkContext("local","SimpleApp")
+    val lines=sc.textFile("")
+    val linelength=lines.map(s=>s.length())
+    print(linelength)
+  
+   
+  }
+  def add(a:Int,b:Int):Int=
+  {
+    return a+b;
+  }
+  def multiply(a:Int,b:Int):Int=
+  {
+    return a*b;
+  }
+  def sub(a:Int,b:Int):Int=
+  {
+    return a-b;
+  }
+  
+}

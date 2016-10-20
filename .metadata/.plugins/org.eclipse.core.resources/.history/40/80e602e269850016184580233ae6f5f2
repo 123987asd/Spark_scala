@@ -1,0 +1,10 @@
+
+import org.apache.spark.SparkContext
+import org.apache.spark.SparkConf
+class SimpleApp {
+  
+  
+  def main(args:Array[String]){
+    
+  }
+}

@@ -1,0 +1,41 @@
+package graphx
+
+import org.apache.spark.rdd.RDD
+import org.apache.spark.SparkConf
+import org.apache.spark.SparkContext
+import org.apache.spark.graphx.VertexId;
+import org.apache.spark.graphx.Edge;
+import org.apache.spark.graphx.VertexRDD;
+import org.apache.spark.graphx.Graph
+
+object fouthStructural {
+  
+  def main(args: Array[String]): Unit = {
+    val conf=new SparkConf
+    conf.setMaster("local[2]").setAppName("")
+    val sc=new SparkContext(conf);
+    //VertexId 表示节点的ID号码
+    val users: RDD[(VertexId, (String, String))] =
+    sc.parallelize(Array((3L, ("rxin", "student")), (7L, ("jgonzal", "postdoc")),
+                       (5L, ("franklin", "prof")), (2L, ("istoica", "prof")),
+                       (4L, ("peter", "student"))))
+    // Create an RDD for edges
+    val relationships: RDD[Edge[String]] =
+    sc.parallelize(Array(Edge(3L, 7L, "collab"),    Edge(5L, 3L, "advisor"),
+                       Edge(2L, 5L, "colleague"), Edge(5L, 7L, "pi"),
+                       Edge(4L, 0L, "student"),   Edge(5L, 0L, "colleague")))
+    //默认的用户 是 users 没有表示的 0L 都用 默认用户表示
+    val defaultuser=("john Doe","Missing")
+    val graph=Graph(users,relationships,defaultuser)
+    graph.vertices.collect().foreach(println(_))
+   // graph.triplets.map(triplet=>triplet.srcId+"的"+triplet.srcAttr._1+"is the"+triplet.attr+"is" +triplet.dstId+"的"+triplet.dstAttr)
+    //val validGraph=graph.subgraph(vpred=(id,attr)=>attr._2!="Missing")
+    //val validGraph1=graph.subgraph(epred=(triplet)=>triplet.attr=="student")
+    val ccGraph=graph.connectedComponents()
+    ccGraph.vertices.collect().foreach(print(_))
+    ccGraph.edges.collect().foreach { n => print(n) }
+
+    //validGraph.vertices.collect.foreach(println(_))
+    //validGraph1.edges.collect().foreach(print(_))
+  }
+}

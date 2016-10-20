@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Class-Path: scala-swing.jar scala-actors.jar scala-actors-migration.ja
+ r scala-library.jar scala-reflect.jar spark-assembly-1.4.1-hadoop2.6.
+ 0.jar
+Main-Class: detected_community.realcommunity
+

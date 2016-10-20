@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;spark/src/Maxlength.scala&apos; to &apos;WordCountscala&apos;" description="Rename resource &apos;Maxlength.scala&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/Maxlength.scala" name="WordCountscala" stamp="1475325681696" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;spark/src/WordCountscala&apos; to &apos;WordCount.scala&apos;" description="Rename resource &apos;WordCountscala&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/WordCountscala" name="WordCount.scala" stamp="1475325715704" updateReferences="true"/>
+</session>

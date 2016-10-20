@@ -1,0 +1,38 @@
+package detected_community
+import org.apache.spark.SparkConf
+import org.apache.spark.SparkContext
+import org.apache.spark.rdd.RDD
+object realcommunity {
+  def main(args: Array[String]): Unit = {
+    readfile()
+    val aa=Array("aa","bb")
+    print(aa(1))
+  }
+  def readfile()=
+  {
+    val conf=new SparkConf
+    conf.setMaster("local[2]").setAppName("test")
+    val sc=new SparkContext(conf)
+    val FileDate=sc.textFile("/home/hu/code/F_measureOld1/need/real/realcommunity.txt")
+    val array=lines(FileDate)
+    //X 表示是value 要转换的类型 y是value的类型 结合 形成 y :: x 我理解就是前面 是 String 后面是 List[String]
+    val arrays=array.combineByKey(List(_),(x:List[String], y:String) => y :: x, (x:List[String], y:List[String]) => x ::: y)
+    //arrays.foreach { n => println(n) }
+    array.groupByKey().foreach(print(_))
+    val map=arrays.collectAsMap();
+   // map.foreach(println(_))
+  }
+  
+  def lines(rdd:RDD[String]):RDD[(String,String)]=
+  {
+    rdd.flatMap(split)
+  }
+  def split(line:String):Array[(String,String)]=
+  {
+   val array=line.split("\t")
+   val array1=array(1).split(" ")
+   val array2=array1.map { node => (node,array(0)) }
+   return array2
+  }
+  
+}

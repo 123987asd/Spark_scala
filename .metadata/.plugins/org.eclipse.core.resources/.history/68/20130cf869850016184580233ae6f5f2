@@ -1,0 +1,11 @@
+
+import org.apache.spark.SparkContext
+import org.apache.spark.SparkConf
+import org.apache.spark.SparkConf
+
+class SimpleApp {
+  def name(appName:String)
+  val conf = new SparkConf().setAppName(appName).setMaster(master)
+new SparkContext(conf)
+
+}

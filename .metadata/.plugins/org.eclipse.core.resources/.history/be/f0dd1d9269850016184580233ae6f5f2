@@ -1,0 +1,7 @@
+
+
+class SimpleApp {
+  def main(args:Array[String]){
+    
+  }
+}

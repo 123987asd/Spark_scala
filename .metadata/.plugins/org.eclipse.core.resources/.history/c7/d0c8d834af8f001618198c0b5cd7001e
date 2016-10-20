@@ -1,0 +1,19 @@
+package detected_community
+
+import org.apache.spark.SparkConf
+import org.apache.spark.SparkContext
+
+object CFD {
+  
+  def main(args: Array[String]): Unit = {
+    readfile()
+  }
+  def readfile()=
+  {
+    val conf=new SparkConf
+    conf.setMaster("local[2]").setAppName("CFD")
+    val sc=new SparkContext(conf)
+    val FileData=sc.textFile("/home/hu/code/F_measureOld1/need/cFinder/k=3/communities");
+    FileData.foreach { n => println(n) }
+  }
+}

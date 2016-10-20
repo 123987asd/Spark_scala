@@ -1,0 +1,42 @@
+import org.apache.spark.rdd.RDD
+import org.apache.spark.SparkContext
+import org.apache.spark.SparkConf
+
+object WORDCOUNT {
+  //把所有的词 都转化成 hello
+  def main(args: Array[String]): Unit = {
+    val conf=new SparkConf
+    conf.setMaster("local[2]").setAppName("WORDCOUNT")
+    val sc=new SparkContext(conf)
+    val data=sc.textFile("/home/hu/spark_data/wordcount", 3)
+    val Text=lines(data)
+    val text=collect(Text)
+    text.foreach { n => print(n) }
+    
+  }
+  //分好一对多 和 多对一的关系 可以这样理解 
+  //map 是一对一的 String 对 String 
+  //flatMap 一对多 String 对 Array[String]
+  //split 对于String 返回 Array[String] 分割后 用flatMap结合 
+  //还是返回值的问题 
+  def lines(rdd:RDD[String]):RDD[String]=
+  {
+    
+      rdd.flatMap(split)//把split 返回的是array[String] 
+      //flatMap 一对多 String 对 Array[String]‘
+  }
+  def split(line:String):Array[String]=
+  {
+    line.split(" ")
+  }
+    def collect(rdd:RDD[String]):RDD[String,Int]=
+  {
+    rdd.map(change)
+    
+  }
+  val word="Hello"
+  def change(words:String):(String,Int)=
+  {
+    (word,1)
+  }
+}

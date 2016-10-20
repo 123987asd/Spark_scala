@@ -1,0 +1,16 @@
+package detected_community
+
+import org.apache.spark.SparkConf
+import org.apache.spark.SparkContext
+
+
+class BD_disjointCommunity {
+  
+  def main(args: Array[String]): Unit = {
+    
+    val conf=new SparkConf
+    conf.setMaster("local[2]").setAppName("test")
+    val sc=new SparkContext
+  }
+  
+}

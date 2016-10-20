@@ -1,0 +1,30 @@
+package detected_community
+
+import org.apache.spark.SparkConf
+import org.apache.spark.SparkContext
+import org.apache.spark.rdd.RDD
+
+
+class BD_disjointCommunity {
+  
+  def main(args: Array[String]): Unit = {
+    
+  }
+  def readfile()=
+  {
+    val conf=new SparkConf
+    conf.setMaster("local[2]").setAppName("test")
+    val sc=new SparkContext(conf)
+    val FileDate=sc.textFile("")
+    val array=
+  }
+  def lines(rdd:RDD[String]):RDD[String]=
+  {
+    rdd.flatMap(split)
+  }
+  def split(line:String):Array[String]=
+  {
+    line.split(" \t")
+  }
+  
+}

@@ -1,0 +1,65 @@
+package graphx
+
+import org.apache.spark.SparkContext
+import org.apache.spark.SparkConf
+import org.apache.spark.graphx.Edge
+import org.apache.spark.graphx.VertexId
+import org.apache.spark.graphx.Graph
+import org.apache.spark.rdd.RDD
+import org.apache.spark.graphx.util.GraphGenerators
+import org.apache.spark.graphx.{Graph, VertexRDD}
+object Example {
+  
+  def main(args: Array[String]): Unit = {
+    
+    val conf=new SparkConf
+    conf.setMaster("local[2]").setAppName("Example")
+    val sc=new SparkContext(conf)
+    //节点和边放在一个Array里面 节点整体看成一个元组 前面是节点编号 后面节点的属性 
+    val users: RDD[(VertexId, (String, String))] =
+    sc.parallelize(Array((3L, ("rxin", "student")), (7L, ("jgonzal", "postdoc")),
+                       (5L, ("franklin", "prof")), (2L, ("istoica", "prof"))))
+    // Create an RDD for edges
+    val relationships: RDD[Edge[String]] =
+    sc.parallelize(Array(Edge(3L, 7L, "collab"),    Edge(5L, 3L, "advisor"),
+                       Edge(2L, 5L, "colleague"), Edge(5L, 7L, "pi")))
+    // Define a default user in case there are relationship with missing user
+    val defaultUser = ("John Doe", "Missing")
+    // Build the initial Graph
+    val graph = Graph(users, relationships, defaultUser)
+    val out=graph.outDegrees
+    val in=graph.inDegrees
+    out.foreach(print(_))
+    
+    // 计算位置是postdoc人的个数
+    //val count=graph.vertices.filter { case (id, (name, pos)) => pos == "postdoc" }.count
+    // 计算源节点>目标节点的个数
+    //val count1=graph.edges.filter(e => e.srcId > e.dstId).count
+    //println(count)
+    //println(count1)
+    //triplet 存储目标节点 源节点的属性和边的属性
+    //triplet.srcAttr (rxin,student) ._1表示是 rxin ._2 b
+    //val facts: RDD[String] =
+   // graph.triplets.map(triplet =>triplet.srcId+
+   // triplet.srcAttr._1 + " is the " + triplet.attr + " of " + triplet.dstAttr._1)
+    //facts.collect.foreach(println(_))
+    //aggregateMessages 少不了 map sendmessages reduce =>看成map  (a,b)=>a++b 看成reduce
+    //这个函数可以知道目标和源节点的信息
+   // val neighbor: VertexRDD[String] = graph.aggregateMessages[String](
+      
+    //triplet=>
+     // {
+       
+    //    triplet.sendToDst(triplet.srcAttr._2) 
+    //  },
+    //  (a,b)=>a+b
+   // )
+    //把源的第二个元素发给 目的
+    //把所有情况加和
+  //  neighbor.collect.foreach(print(_))//a+b的结果 (3,prof)(7,studentprof)(5,prof)
+    //a: (3,prof)(7,student)(5,prof) b:(3,prof)(7,prof)(5,prof)
+  
+    
+    
+  }
+}

@@ -1,0 +1,17 @@
+
+import org.apache.spark.rdd.RDD
+import org.apache.spark.SparkContext
+import org.apache.spark.SparkConf
+
+object distinctTest {
+  //[] 表示 类型 （） 集合 使用的
+  def main(args: Array[String]): Unit = {
+     val conf=new SparkConf
+     conf.setMaster("local[2]").setAppName("distinctTest")
+     val sc=new SparkContext(conf)
+     val first:RDD[String]=sc.parallelize(List("aa","bb","cc"))
+     val second:RDD[String]=sc.parallelize(List("aa","bb","cc"))
+     val third=first.zip(second)
+     third.foreach(print(_))
+  }
+}

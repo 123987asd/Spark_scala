@@ -1,0 +1,27 @@
+import org.apache.spark.rdd.RDD
+import org.apache.spark.SparkContext
+import org.apache.spark.SparkConf
+
+object WORDCOUNT {
+  
+  def main(args: Array[String]): Unit = {
+    val conf=new SparkConf
+    conf.setMaster("local[2]").setAppName("WORDCOUNT")
+    val sc=new SparkContext(conf)
+    val lines=sc.textFile("", 3)
+    val Text=lines.collect()
+    Text.foreach { n => print(n) }
+  }
+  
+  def collect(rdd:RDD[String]):RDD[String]=
+  {
+    rdd.map(split)
+    
+  }
+  val word="hello"
+  def split(line:String):String=
+  {
+    
+      word
+  }
+}

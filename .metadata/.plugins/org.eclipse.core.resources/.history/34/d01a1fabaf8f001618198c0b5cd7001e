@@ -1,0 +1,36 @@
+package detected_community
+
+import org.apache.spark.SparkConf
+import org.apache.spark.SparkContext
+import org.apache.spark.rdd.RDD
+
+object CFD {
+  
+  def main(args: Array[String]): Unit = {
+    readfile()
+  }
+  def readfile()=
+  {
+    val conf=new SparkConf
+    conf.setMaster("local[2]").setAppName("CFD")
+    val sc=new SparkContext(conf)
+    val FileData=sc.textFile("/home/hu/code/F_measureOld1/need/cFinder/k=3/communities");
+    
+    //FileData.foreach { n => println(n) }
+  }
+  def lines(rdd:RDD[String]):RDD[String]=
+  {
+     rdd.flatMap(split)
+  }
+  def split(line:String):String=
+  {
+    val array=line.split(": ")
+    val array1=array(1).split(" ")
+    val length=array1.length
+    for(i<-1 until(length))
+    {
+      
+    }
+    
+  }
+}

@@ -1,0 +1,12 @@
+
+
+object scalaTest {
+  
+  def main(args: Array[String]): Unit = {
+    val x="aa";
+    val y=List("bb","cc")
+    val c=x :: y
+    print(type(c))
+    c.foreach { n => print(n) }
+  }
+}

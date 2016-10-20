@@ -1,0 +1,16 @@
+package graphx
+
+import org.apache.spark.SparkConf
+import org.apache.spark.SparkContext
+import org.apache.spark.graphx.VertexId;
+import org.apache.spark.graphx.VertexRDD;
+
+object fouthStructural {
+  
+  def main(args: Array[String]): Unit = {
+    val conf=new SparkConf
+    conf.setMaster("local[2]").setAppName("")
+    val sc=new SparkContext(conf);
+    val user:VertexRDD[(VerterId,(String,String))]:sc.parallelize(seq, numSlices)
+  }
+}

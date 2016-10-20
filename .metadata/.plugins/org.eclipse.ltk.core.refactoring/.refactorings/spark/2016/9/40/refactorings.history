@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;spark/src/SimpleApp.scala&apos; to &apos;Totallength.scala&apos;" description="Rename resource &apos;SimpleApp.scala&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/SimpleApp.scala" name="Totallength.scala" stamp="1475120382970" updateReferences="true"/>
+</session>

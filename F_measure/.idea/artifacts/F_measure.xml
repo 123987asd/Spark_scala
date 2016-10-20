@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="F_measure">
+    <output-path>$PROJECT_DIR$/classes/artifacts/F_measure</output-path>
+    <root id="archive" name="F_measure.jar">
+      <element id="module-output" name="F_measure" />
+    </root>
+  </artifact>
+</component>

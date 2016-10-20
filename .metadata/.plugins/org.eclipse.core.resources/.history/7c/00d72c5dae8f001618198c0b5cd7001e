@@ -1,0 +1,12 @@
+package detected_community
+
+object CFD {
+  
+  def main(args: Array[String]): Unit = {
+    
+  }
+  def readfile()=
+  {
+    
+  }
+}

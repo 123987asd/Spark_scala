@@ -1,0 +1,26 @@
+package detected_community
+
+object realcommunity {
+  def main(args: Array[String]): Unit = {
+    readfile()
+  }
+  def readfile()=
+  {
+    val conf=new SparkConf
+    conf.setMaster("local[2]").setAppName("test")
+    val sc=new SparkContext(conf)
+    val FileDate=sc.textFile("/home/hu/code/F_measureOld1/need/real/realcommunity.txt")
+    val array=lines(FileDate)
+    array.collect().foreach { n => println(n) }
+  }
+  def lines(rdd:RDD[String]):RDD[String]=
+  {
+    rdd.flatMap(split)
+  }
+  def split(line:String):Array[String]=
+  {
+    line.split("\t")
+  }
+  
+}
+}
